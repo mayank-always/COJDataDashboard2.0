@@ -6,28 +6,19 @@ import plotly.express as px
 # Set page title
 st.title('COJ Ticket Dashboard')
 
-# Sidebar options
-add_tabs = st.sidebar.radio(
-    "Choose The Dashboard",
-    ("Total Ticket Count", "Types of Incidents", "Average Incidents Daily", "Chatbot", "Daily Average Cases by Year")
-)
-
-# File uploader
+# Upload data
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
-# Function to read data
-@st.cache_data
-def load_data(uploaded_file):
-    if uploaded_file is not None:
-        data = pd.read_csv(uploaded_file)
-        return data
-    return None
-
-# Load data
-data = load_data(uploaded_file)
-
-# Tabs based on uploaded data
-if data is not None:
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file)
+    
+    # Sidebar options
+    add_tabs = st.sidebar.radio(
+        "Choose The Dashboard",
+        ("Total Ticket Count", "Types of Incidents", "Average Incidents Daily", "Chatbot", "Daily Average Cases by Year")
+    )
+    
+    # Tabs
     if add_tabs == "Total Ticket Count":
         st.header('Total Ticket Count')
         total_tickets = len(data)
