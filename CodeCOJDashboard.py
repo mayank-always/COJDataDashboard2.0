@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import plotly.express as px
 
 # Set page title
 st.title('COJ Ticket Dashboard')
@@ -12,17 +12,19 @@ add_tabs = st.sidebar.radio(
     ("Total Ticket Count", "Types of Incidents", "Average Incidents Daily", "Chatbot", "Daily Average Cases by Year")
 )
 
-# Function to upload data
-@st.cache(allow_output_mutation=True)
-def upload_data():
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+# File uploader
+uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+
+# Function to read data
+@st.cache_data
+def load_data(uploaded_file):
     if uploaded_file is not None:
         data = pd.read_csv(uploaded_file)
         return data
     return None
 
-# Upload data
-data = upload_data()
+# Load data
+data = load_data(uploaded_file)
 
 # Tabs based on uploaded data
 if data is not None:
