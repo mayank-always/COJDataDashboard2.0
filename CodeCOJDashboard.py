@@ -1,9 +1,8 @@
 import sys
-!{sys.executable} -m pip install plotlyimport streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-
+import streamlit as st
 # Set page title
 st.title('COJ Ticket Dashboard')
 
